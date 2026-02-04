@@ -26,5 +26,8 @@ in mind to reinforce foundational Java concepts.
 - User input handling and validation
 - Separation of concerns
 
-## Project Structure
-
+## Possible Improvements
+- Persist student data using file I/O
+- Replace arrays with ArrayList for dynamic storage
+- Add sorting functionality
+- Introduce unit testing
