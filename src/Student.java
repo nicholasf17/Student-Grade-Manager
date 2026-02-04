@@ -1,10 +1,8 @@
 /**
- * 
+ * Student class
  */
 
-/**
- * 
- */
+
 public class Student {
 	private String name;
 	private int studentNumber;
@@ -31,4 +29,5 @@ public String toString() {
 	return "Name: " + name + " Student Number: " + studentNumber + " Grade: " + grade;
 	
 }
+
 }

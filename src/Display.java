@@ -75,11 +75,13 @@ public class Display {
 			System.out.println();
 			System.out.println("What is the students number that your searching for ");
 			int studentNumber = scanner.nextInt();
+			
 			for(int k = 0; k < students.length - 1; k++) {
 				if(students[k].getStudentNumber() == studentNumber) {
 					System.out.println("Name: "+ students[k].getName() + " Grade: "+students[k].getGrade() );
 					break;
-				}	
+				}
+				
 				}
 			System.out.println("No such student ");
 			break;
