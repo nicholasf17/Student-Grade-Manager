@@ -17,17 +17,15 @@ public Student(String name, int studentNumber, int grade) {
 public String getName() {
     return name;
 }
-public int getGrade() {
-    return grade;
-}
-
 public int getStudentNumber() {
 	return studentNumber;
+}
+public int getGrade() {
+    return grade;
 }
 
 public String toString() {
 	return "Name: " + name + " Student Number: " + studentNumber + " Grade: " + grade;
 	
 }
-
 }

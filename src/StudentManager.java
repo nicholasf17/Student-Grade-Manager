@@ -1,58 +1,51 @@
+import java.util.ArrayList;
+
 /**
- * Student Mangaer
+ * Student Manager
  * contains all logic
  */
 
 
 public class StudentManager {
-	private static final int MAX_STUDENTS = 10;
+	
 
-    private Student[] students;
-    private int count;
+	ArrayList<Student> students;
+   
 
     public StudentManager() {
-        students = new Student[MAX_STUDENTS];
-        count = 0;
+    	students = new ArrayList<>();
+       
     }
 
-    public boolean addStudent(String name, int studentNumber, int grade) {
-        if (count >= MAX_STUDENTS) {
-            return false;
-        }
-
-        students[count] = new Student(name, studentNumber, grade);
-        count++;
-        return true;
+    public void addStudent(String name, int studentNumber, int grade) {
+      students.add(new Student(name, studentNumber, grade));
     }
 
-    public Student[] getStudents() {
+    public ArrayList<Student> getAllStudents() {
         return students;
     }
 
-    public int getCount() {
-        return count;
-    }
-
+   
     public Student findStudentByNumber(int studentNumber) {
-        for (int i = 0; i < count; i++) {
-            if (students[i].getStudentNumber() == studentNumber) {
-                return students[i];
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getStudentNumber() == studentNumber) {
+                return students.get(i);
             }
         }
         return null;
     }
 
     public double calculateAverage() {
-        if (count == 0) {
+        if (students.size() == 0) {
             return 0;
         }
 
         int sum = 0;
-        for (int i = 0; i < count; i++) {
-            sum += students[i].getGrade();
+        for (int i = 0; i < students.size(); i++) {
+            sum += students.get(i).getGrade();
         }
 
-        double average = (double) sum / count;
+        double average = (double) sum / students.size();
         return Math.round(average * 100.0) / 100.0;
     }
 }

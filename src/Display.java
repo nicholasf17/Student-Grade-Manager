@@ -30,7 +30,7 @@ public class Display {
 	public static void main(String[] args) {
 		
 		Scanner scanner = new Scanner(System.in);
-		StudentManager manager= new StudentManager();
+		StudentManager manager = new StudentManager();
 		boolean exit = false;
 		
 		System.out.println("Welcome to my Class analyzer");
@@ -56,18 +56,14 @@ public class Display {
              System.out.print("Grade: ");
              int grade = scanner.nextInt();
 
-             boolean added = manager.addStudent(name, studentNumber, grade);
-
-             if (!added) {
-                 System.out.println("Class is full. Cannot add more students.");
-             } else {
-                 System.out.println("Student added successfully.");
-             }
+              manager.addStudent(name, studentNumber, grade);
+              System.out.print("Student Added ");
+            
              break;
 		 case 2:
              System.out.println("\nAll Students:");
-             for (int i = 0; i < manager.getCount(); i++) {
-                 System.out.println(manager.getStudents()[i]);
+             for (int i = 0; i < manager.getAllStudents().size(); i++) {
+                 System.out.println(manager.getAllStudents());
              }
              break;
 		 case 3:
