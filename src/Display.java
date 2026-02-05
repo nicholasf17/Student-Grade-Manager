@@ -40,7 +40,8 @@ public class Display {
 		System.out.println("2. Display classroom");
 		System.out.println("3. Search by student Number");
 		System.out.println("4. Calculate Average Grade");
-		System.out.println("5. Exit");
+		System.out.println("5. Sort by student Number");
+		System.out.println("6. Exit");
 		System.out.print("Choose an option:");
 		
 		int choice = scanner.nextInt();
@@ -50,11 +51,8 @@ public class Display {
              System.out.print("Student name: ");
              String name = scanner.next();
 
-             System.out.print("Student number: ");
-             int studentNumber = scanner.nextInt();
-
-             System.out.print("Grade: ");
-             int grade = scanner.nextInt();
+             int studentNumber = getValidStudentNumber(scanner);
+             int grade = getValidGrade(scanner);
 
               manager.addStudent(name, studentNumber, grade);
               System.out.print("Student Added ");
@@ -63,12 +61,12 @@ public class Display {
 		 case 2:
              System.out.println("\nAll Students:");
              for (int i = 0; i < manager.getAllStudents().size(); i++) {
-                 System.out.println(manager.getAllStudents());
+                 System.out.println(manager.getAllStudents().get(i));
              }
              break;
 		 case 3:
              System.out.print("Enter student number to search: ");
-             int searchNumber = scanner.nextInt();
+             int searchNumber = getIntInput(scanner);
 
              Student found = manager.findStudentByNumber(searchNumber);
 
@@ -83,6 +81,10 @@ public class Display {
              System.out.println("Class average: " + average);
              break;
 		 case 5:
+			 manager.sortByStudentNumber();
+             System.out.println("Sort Done!");
+             break;
+		 case 6:
              exit = true;
              System.out.println("Goodbye!");
              break;
@@ -93,6 +95,32 @@ public class Display {
 		}
 		scanner.close();
 	}
+	
+	private static int getIntInput(Scanner scanner) {
+	    while (!scanner.hasNextInt()) {
+	        System.out.print("Invalid input. Enter a number: ");
+	        scanner.next();
+	    }
+	    return scanner.nextInt();
+	}
+	
+	private static int getValidGrade(Scanner scanner) {
+	    int grade;
+	    do {
+	        System.out.print("Enter grade (0–100): ");
+	        grade = getIntInput(scanner);
+	    } while (grade < 0 || grade > 100);
+	    return grade;
+	}
+	private static int getValidStudentNumber(Scanner scanner) {
+	    int number;
+	    do {
+	        System.out.print("Enter student number (positive): ");
+	        number = getIntInput(scanner);
+	    } while (number <= 0);
+	    return number;
+	}
+
 		
 }
 

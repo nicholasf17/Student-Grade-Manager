@@ -1,5 +1,6 @@
 import java.util.ArrayList;
-
+import java.util.Collections;
+import java.util.Comparator;
 /**
  * Student Manager
  * contains all logic
@@ -47,5 +48,9 @@ public class StudentManager {
 
         double average = (double) sum / students.size();
         return Math.round(average * 100.0) / 100.0;
+    }
+    
+    public void sortByStudentNumber() {
+    	Collections.sort(students, Comparator.comparingInt(Student::getStudentNumber));
     }
 }
