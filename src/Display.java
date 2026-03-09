@@ -33,68 +33,95 @@ public class Display {
 		StudentManager manager = new StudentManager();
 		boolean exit = false;
 		
-		System.out.println("Welcome to my Class analyzer");
+		System.out.println("----------------------------------");
+        System.out.println("        CLASS ANALYZER");
+        System.out.println("----------------------------------");
 		
 		while(!exit){
-		System.out.println("\n1. Add a student");
-		System.out.println("2. Display classroom");
-		System.out.println("3. Search by student Number");
-		System.out.println("4. Calculate Average Grade");
-		System.out.println("5. Sort by student Number");
-		System.out.println("6. Exit");
-		System.out.print("Choose an option:");
+			 printMenu();
+			 System.out.print("Choose an option:");
+			 int choice = scanner.nextInt();
 		
-		int choice = scanner.nextInt();
-		
-		switch(choice) {
-		 case 1:
-             System.out.print("Student name: ");
-             String name = scanner.next();
+			 switch(choice) {
+			 	
+			 	case 1:
+			 		System.out.println("\n--- Add Student ---");
+			 		
+			 		System.out.print("Student name: ");
+			 		String name = scanner.next();
 
-             int studentNumber = getValidStudentNumber(scanner);
-             int grade = getValidGrade(scanner);
+			 		int studentNumber = getValidStudentNumber(scanner);
+			 		int grade = getValidGrade(scanner);
 
-              manager.addStudent(name, studentNumber, grade);
-              System.out.print("Student Added ");
+			 		manager.addStudent(name, studentNumber, grade);
+			 		System.out.print("Student Added ");
             
-             break;
-		 case 2:
-             System.out.println("\nAll Students:");
-             for (int i = 0; i < manager.getAllStudents().size(); i++) {
-                 System.out.println(manager.getAllStudents().get(i));
-             }
-             break;
-		 case 3:
-             System.out.print("Enter student number to search: ");
-             int searchNumber = getIntInput(scanner);
+			 		break;
+			 	case 2:
+			 		System.out.println("\n------ STUDENT LIST ------");
+			 		
+			 		 if (manager.getAllStudents().isEmpty()) {
+	                        System.out.println("No students found.");
+	                        break;
+	                    }
+			 		 
+			 		   System.out.printf("%-12s %-10s %-6s\n", "Name", "ID", "Grade");
+	                    System.out.println("--------------------------------");
 
-             Student found = manager.findStudentByNumber(searchNumber);
+	                    for (Student student : manager.getAllStudents()) {
+	                        System.out.printf("%-12s %-10d %-6d\n",
+	                                student.getName(),
+	                                student.getStudentNumber(),
+	                                student.getGrade());
+	                    }
 
-             if (found != null) {
-                 System.out.println(found);
-             } else {
-                 System.out.println("No such student.");
-             }
-             break;
-		 case 4:
-             double average = manager.calculateAverage();
-             System.out.println("Class average: " + average);
-             break;
-		 case 5:
-			 manager.sortByStudentNumber();
-             System.out.println("Sort Done!");
-             break;
-		 case 6:
-             exit = true;
-             System.out.println("Goodbye!");
-             break;
-		default:
-			System.out.println("Invalid input");
-			break;
+	                    System.out.println("--------------------------------");
+	                    break;
+          
+			 	case 3:
+			 		System.out.println("Student found:");
+			 		
+			 		System.out.print("Enter student number to search: ");
+			 		int searchNumber = getIntInput(scanner);
+
+			 		Student found = manager.findStudentByNumber(searchNumber);
+
+			 		if (found != null) {
+			 			System.out.println("Student found:");
+			 			System.out.println(found);
+			 		} else {
+			 			 System.out.println("Student not found.");
+			 		}
+			 		break;
+			 	case 4:
+			 		 System.out.println("\n--- Class Average ---");
+	                 double average = manager.calculateAverage();
+	                 System.out.printf("Class average: %.2f\n", average);
+			 		break;
+			 	case 5:
+			 		manager.sortByStudentNumber();
+			 		 System.out.println("Students sorted by ID.");
+			 		break;
+			 	case 6:
+			 		exit = true;
+			 		System.out.println("Exiting program...");
+			 		break;
+			 	default:
+			 		 System.out.println("Invalid option. Try again.");
+			 }
+			}
+			scanner.close();
 		}
-		}
-		scanner.close();
-	}
+	
+	private static void printMenu() {
+        System.out.println("\nMenu");
+        System.out.println("1. Add Student");
+        System.out.println("2. Display Classroom");
+        System.out.println("3. Search by Student Number");
+        System.out.println("4. Calculate Average Grade");
+        System.out.println("5. Sort by Student Number");
+        System.out.println("6. Exit");
+    }
 	
 	private static int getIntInput(Scanner scanner) {
 	    while (!scanner.hasNextInt()) {

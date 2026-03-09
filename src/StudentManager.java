@@ -1,6 +1,12 @@
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Scanner;
+import java.io.File;
 /**
  * Student Manager
  * contains all logic
@@ -15,11 +21,12 @@ public class StudentManager {
 
     public StudentManager() {
     	students = new ArrayList<>();
-       
+    	loadFromFile();
     }
 
     public void addStudent(String name, int studentNumber, int grade) {
       students.add(new Student(name, studentNumber, grade));
+      saveToFile();
     }
 
     public ArrayList<Student> getAllStudents() {
@@ -52,5 +59,36 @@ public class StudentManager {
     
     public void sortByStudentNumber() {
     	Collections.sort(students, Comparator.comparingInt(Student::getStudentNumber));
+    }
+    private void saveToFile() {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("students.txt"))) {
+
+            for (Student s : students) {
+                writer.println(s.getName() + "," + s.getStudentNumber() + "," + s.getGrade());
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error saving students.");
+        }
+    }
+    private void loadFromFile() {
+
+        try (Scanner fileScanner = new Scanner(new File("students.txt"))) {
+
+            while (fileScanner.hasNextLine()) {
+
+                String line = fileScanner.nextLine();
+                String[] parts = line.split(",");
+
+                String name = parts[0];
+                int number = Integer.parseInt(parts[1]);
+                int grade = Integer.parseInt(parts[2]);
+
+                students.add(new Student(name, number, grade));
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("No saved students yet.");
+        }
     }
 }
